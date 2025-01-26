@@ -98,27 +98,14 @@ import TableFooter from 'themes/overrides/TableFooter';
 
 function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
   const [formData, setFormData] = useState({
-    company: '',
-    employeeId: '',
+    clientID: '',
     name: '',
-    age: '',
-    job: '',
     email: '',
-    phone: '',
-    oca: '',
-    resume: '',
-    desiredSalary: '',
-    revenue: '',
-    hiredSince: '',
     profit: '',
-    clientRate: '',
-    rate: '',
-    companyCharge: '',
-    bankNotes: '',
-    contract: '',
-    lastPaid: '',
-    sinceLastPaid: '',
-    maxWorkedHourLimit: ''
+    revenue: '',
+    newLead: '',
+    contact: '',
+    notes: ''
   });
 
   const handleChange = (e) => {
@@ -130,62 +117,38 @@ function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
     handleAddEmployee(formData);
     handleClose();
     setFormData({
-      company: '',
-      employeeId: '',
+      clientID: '',
       name: '',
-      age: '',
-      job: '',
       email: '',
-      phone: '',
-      oca: '',
-      resume: '',
-      desiredSalary: '',
-      revenue: '',
-      hiredSince: '',
       profit: '',
-      clientRate: '',
-      rate: '',
-      companyCharge: '',
-      bankNotes: '',
-      contract: '',
-      lastPaid: '',
-      sinceLastPaid: '',
-      maxWorkedHourLimit: ''
+      revenue: '',
+      newLead: '',
+      contact: '',
+      notes: ''
     });
   };
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle>Add Employee</DialogTitle>
+      <DialogTitle>Add Client</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
-          <TextField label="Employee ID" name="employeeId" value={formData.employeeId} onChange={handleChange} fullWidth />
+          <TextField label="Client ID" name="clientID" value={formData.clientID} onChange={handleChange} fullWidth />
           <TextField label="Name" name="name" value={formData.name} onChange={handleChange} fullWidth />
-          <TextField label="Age" name="age" type="number" value={formData.age} onChange={handleChange} fullWidth />
-          <TextField label="Job" name="job" value={formData.job} onChange={handleChange} fullWidth />
           <TextField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} fullWidth />
-          <TextField label="Phone Number" name="phone" type="tel" value={formData.phone} onChange={handleChange} fullWidth />
-          <TextField label="OCA" name="oca" value={formData.oca} onChange={handleChange} fullWidth />
-          <TextField label="Resume Link" name="resume" value={formData.resume} onChange={handleChange} fullWidth />
-          <TextField label="Desired Salary" name="desiredSalary" value={formData.desiredSalary} onChange={handleChange} fullWidth />
-          <TextField label="Revenue" name="revenue" value={formData.revenue} onChange={handleChange} fullWidth />
-          <TextField label="Hired Since" name="hiredSince" type="date" value={formData.hiredSince} onChange={handleChange} fullWidth />
-          <TextField label="Profit" name="profit" value={formData.profit} onChange={handleChange} fullWidth />
-          <TextField label="Client Rate" name="clientRate" value={formData.clientRate} onChange={handleChange} fullWidth />
-          <TextField label="Rate" name="rate" value={formData.rate} onChange={handleChange} fullWidth />
-          <TextField label="Company Charge" name="companyCharge" value={formData.companyCharge} onChange={handleChange} fullWidth />
-          <TextField label="Bank Notes" name="bankNotes" value={formData.bankNotes} onChange={handleChange} fullWidth />
-          <TextField label="Contract" name="contract" value={formData.contract} onChange={handleChange} fullWidth />
-          <TextField label="Last Paid" name="lastPaid" type="date" value={formData.lastPaid} onChange={handleChange} fullWidth />
-          <TextField label="Since Last Paid" name="sinceLastPaid" value={formData.sinceLastPaid} onChange={handleChange} fullWidth />
+          <TextField label="Profit" name="profit" type="number" value={formData.profit} onChange={handleChange} fullWidth />
+          <TextField label="Revenue" name="revenue" type="number" value={formData.revenue} onChange={handleChange} fullWidth />
           <TextField
-            label="Max Worked Hour Limit"
-            name="maxWorkedHourLimit"
-            value={formData.maxWorkedHourLimit}
+            label="New Lead Date"
+            name="newLead"
+            type="date"
+            value={formData.newLead}
             onChange={handleChange}
+            InputLabelProps={{ shrink: true }}
             fullWidth
           />
+          <TextField label="Contact" name="contact" value={formData.contact} onChange={handleChange} fullWidth />
+          <TextField label="Notes" name="notes" value={formData.notes} onChange={handleChange} multiline rows={3} fullWidth />
         </Stack>
       </DialogContent>
       <DialogActions>
@@ -206,55 +169,80 @@ AddEmployeeModal.propTypes = {
   handleAddEmployee: PropTypes.func.isRequired
 };
 
+// function DeleteAction({ row, table }) {
+//   const meta = table?.options?.meta;
+//   const [anchorEl, setAnchorEl] = useState(null);
+//   const setSelectedRow = (e) => {
+//     meta?.setSelectedRow((old) => ({
+//       ...old,
+//       [row.id]: !old[row.id]
+//     }));
+
+//     // @ts-ignore
+//     meta?.revertData(row.index, e?.currentTarget.name === 'cancel');
+//   };
+
+//   const handleDelete = () => {
+//     meta?.deleteRow(row);
+//   };
+
+//   const handleOpenMenu = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+
+//   const handleCloseMenu = () => {
+//     setAnchorEl(null);
+//   };
+
+//   const handleUnemployed = () => {
+//     // Handle the unemploy action here
+//     handleCloseMenu();
+//   };
+
+//   return (
+//     <Stack direction="row" spacing={1} alignItems="center">
+//       <Tooltip title="Delete">
+//         <IconButton color="error" onClick={handleDelete}>
+//           <CloseOutlined />
+//         </IconButton>
+//       </Tooltip>
+
+//       {/* <Tooltip title="More Options">
+//         <IconButton onClick={handleOpenMenu} color="primary">
+//           <MoreOutlined />
+//         </IconButton>
+//       </Tooltip> */}
+
+//       {/* More Options Menu */}
+//       {/* <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+//         <MenuItem onClick={handleDelete}>Delete</MenuItem>
+//         <MenuItem onClick={handleUnemployed}>Unemployed</MenuItem>
+//       </Menu> */}
+//     </Stack>
+//   );
+// }
 function DeleteAction({ row, table }) {
   const meta = table?.options?.meta;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const setSelectedRow = (e) => {
-    meta?.setSelectedRow((old) => ({
-      ...old,
-      [row.id]: !old[row.id]
-    }));
-
-    // @ts-ignore
-    meta?.revertData(row.index, e?.currentTarget.name === 'cancel');
-  };
 
   const handleDelete = () => {
-    meta?.deleteRow(row);
-  };
+    // Get the ID or unique identifier of the row
+    const rowId = row.id;
 
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-
-  const handleUnemployed = () => {
-    // Handle the unemploy action here
-    handleCloseMenu();
+    // Filter out the row with the matching ID
+    // meta?.setData((prevData) => prevData.filter((_, index) => index !== row.index));
+    const confirmed = window.confirm('Are you sure you want to delete this row?');
+    if (confirmed) {
+      meta?.setData((prevData) => prevData.filter((_, index) => index !== row.index));
+    }
   };
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      {/* <Tooltip title="Delete">
+      <Tooltip title="Delete">
         <IconButton color="error" onClick={handleDelete}>
           <CloseOutlined />
         </IconButton>
-      </Tooltip> */}
-
-      <Tooltip title="More Options">
-        <IconButton onClick={handleOpenMenu} color="primary">
-          <MoreOutlined />
-        </IconButton>
       </Tooltip>
-
-      {/* More Options Menu */}
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-        <MenuItem onClick={handleUnemployed}>Unemployed</MenuItem>
-      </Menu>
     </Stack>
   );
 }
@@ -364,6 +352,7 @@ function ReactTable({ columns, data, setData }) {
       selectedRow,
       setSelectedRow,
       deleteRow,
+      setData,
       revertData: (rowIndex, revert) => {
         if (revert) {
           setData((old) => old.map((row, index) => (index === rowIndex ? originalData[rowIndex] : row)));
@@ -538,7 +527,7 @@ function ReactTable({ columns, data, setData }) {
 
 // ==============================|| REACT TABLE - EDITABLE ROW WITH SORTING AND FILTERING ||============================== //
 
-export default function Employee() {
+export default function Clients() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -547,428 +536,106 @@ export default function Employee() {
   const handleAddEmployee = (newEmployee) => {
     setData((prevData) => [...prevData, newEmployee]);
   };
-  // const [data, setData] = useState(() => [
-  //   {
-  //     company: 'Company A',
-  //     employeeId: 'E123',
-  //     name: 'John Doe',
-  //     age: 30,
-  //     oca: 'OCA123',
-  //     resume: 'Resume Link',
-  //     desiredSalary: '50000',
-  //     revenue: 200000,
-  //     hiredSince: '2020-01-01',
-  //     profit: 100000,
-  //     job: 'Developer',
-  //     clientRate: 50,
-  //     rate: 100,
-  //     companyCharge: 10000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-01',
-  //     sinceLastPaid: '30 days',
-  //     maxWorkedHourLimit: 40
-  //   },
-  //   {
-  //     company: 'Company B',
-  //     employeeId: 'E124',
-  //     name: 'Jane Smith',
-  //     age: 28,
-  //     oca: 'OCA124',
-  //     resume: 'Resume Link 2',
-  //     desiredSalary: '55000',
-  //     revenue: 180000,
-  //     hiredSince: '2021-06-15',
-  //     profit: 90000,
-  //     job: 'Designer',
-  //     clientRate: 45,
-  //     rate: 95,
-  //     companyCharge: 12000,
-  //     bankNotes: 'Yes',
-  //     contract: 'Contractual',
-  //     lastPaid: '2025-01-10',
-  //     sinceLastPaid: '15 days',
-  //     maxWorkedHourLimit: 35
-  //   },
-  //   {
-  //     company: 'Company C',
-  //     employeeId: 'E125',
-  //     name: 'Alice Johnson',
-  //     age: 35,
-  //     oca: 'OCA125',
-  //     resume: 'Resume Link 3',
-  //     desiredSalary: '60000',
-  //     revenue: 250000,
-  //     hiredSince: '2019-03-20',
-  //     profit: 150000,
-  //     job: 'Manager',
-  //     clientRate: 60,
-  //     rate: 120,
-  //     companyCharge: 15000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-20',
-  //     sinceLastPaid: '5 days',
-  //     maxWorkedHourLimit: 50
-  //   },
-  //   {
-  //     company: 'Company D',
-  //     employeeId: 'E126',
-  //     name: 'Michael Brown',
-  //     age: 40,
-  //     oca: 'OCA126',
-  //     resume: 'Resume Link 4',
-  //     desiredSalary: '70000',
-  //     revenue: 300000,
-  //     hiredSince: '2018-10-12',
-  //     profit: 170000,
-  //     job: 'Project Lead',
-  //     clientRate: 70,
-  //     rate: 130,
-  //     companyCharge: 18000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-15',
-  //     sinceLastPaid: '10 days',
-  //     maxWorkedHourLimit: 45
-  //   },
-  //   {
-  //     company: 'Company E',
-  //     employeeId: 'E127',
-  //     name: 'Sara Williams',
-  //     age: 29,
-  //     oca: 'OCA127',
-  //     resume: 'Resume Link 5',
-  //     desiredSalary: '52000',
-  //     revenue: 220000,
-  //     hiredSince: '2020-05-05',
-  //     profit: 110000,
-  //     job: 'UI/UX Designer',
-  //     clientRate: 55,
-  //     rate: 105,
-  //     companyCharge: 11000,
-  //     bankNotes: 'Yes',
-  //     contract: 'Contractual',
-  //     lastPaid: '2025-01-05',
-  //     sinceLastPaid: '20 days',
-  //     maxWorkedHourLimit: 38
-  //   },
-  //   {
-  //     company: 'Company F',
-  //     employeeId: 'E128',
-  //     name: 'David Clark',
-  //     age: 32,
-  //     oca: 'OCA128',
-  //     resume: 'Resume Link 6',
-  //     desiredSalary: '65000',
-  //     revenue: 240000,
-  //     hiredSince: '2019-07-22',
-  //     profit: 130000,
-  //     job: 'Software Engineer',
-  //     clientRate: 65,
-  //     rate: 110,
-  //     companyCharge: 13000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-18',
-  //     sinceLastPaid: '7 days',
-  //     maxWorkedHourLimit: 42
-  //   },
-  //   {
-  //     company: 'Company G',
-  //     employeeId: 'E129',
-  //     name: 'Emma Turner',
-  //     age: 26,
-  //     oca: 'OCA129',
-  //     resume: 'Resume Link 7',
-  //     desiredSalary: '48000',
-  //     revenue: 170000,
-  //     hiredSince: '2022-01-12',
-  //     profit: 85000,
-  //     job: 'Marketing Specialist',
-  //     clientRate: 40,
-  //     rate: 90,
-  //     companyCharge: 10000,
-  //     bankNotes: 'Yes',
-  //     contract: 'Contractual',
-  //     lastPaid: '2025-01-25',
-  //     sinceLastPaid: '1 day',
-  //     maxWorkedHourLimit: 37
-  //   },
-  //   {
-  //     company: 'Company H',
-  //     employeeId: 'E130',
-  //     name: 'Chris Davis',
-  //     age: 38,
-  //     oca: 'OCA130',
-  //     resume: 'Resume Link 8',
-  //     desiredSalary: '58000',
-  //     revenue: 200000,
-  //     hiredSince: '2020-08-08',
-  //     profit: 120000,
-  //     job: 'Business Analyst',
-  //     clientRate: 50,
-  //     rate: 100,
-  //     companyCharge: 14000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-10',
-  //     sinceLastPaid: '15 days',
-  //     maxWorkedHourLimit: 40
-  //   },
-  //   {
-  //     company: 'Company I',
-  //     employeeId: 'E131',
-  //     name: 'Sophia Walker',
-  //     age: 27,
-  //     oca: 'OCA131',
-  //     resume: 'Resume Link 9',
-  //     desiredSalary: '55000',
-  //     revenue: 210000,
-  //     hiredSince: '2021-11-30',
-  //     profit: 100000,
-  //     job: 'Content Writer',
-  //     clientRate: 55,
-  //     rate: 95,
-  //     companyCharge: 12000,
-  //     bankNotes: 'Yes',
-  //     contract: 'Contractual',
-  //     lastPaid: '2025-01-12',
-  //     sinceLastPaid: '14 days',
-  //     maxWorkedHourLimit: 35
-  //   },
-  //   {
-  //     company: 'Company J',
-  //     employeeId: 'E132',
-  //     name: 'Daniel Wilson',
-  //     age: 34,
-  //     oca: 'OCA132',
-  //     resume: 'Resume Link 10',
-  //     desiredSalary: '60000',
-  //     revenue: 260000,
-  //     hiredSince: '2017-04-18',
-  //     profit: 140000,
-  //     job: 'HR Manager',
-  //     clientRate: 65,
-  //     rate: 110,
-  //     companyCharge: 16000,
-  //     bankNotes: 'No',
-  //     contract: 'Permanent',
-  //     lastPaid: '2025-01-22',
-  //     sinceLastPaid: '4 days',
-  //     maxWorkedHourLimit: 48
-  //   }
-  // ]);
   const [data, setData] = useState(() => [
     {
-      company: 'Company A',
-      employeeId: 'E123',
+      clientID: 'C001',
       name: 'John Doe',
-      age: '30',
-      oca: 'OCA123',
-      resume: 'Resume Link',
-      desiredSalary: '50000',
-      revenue: '200000',
-      hiredSince: '2020-01-01',
+      email: 'johndoe@example.com',
       profit: '100000',
-      job: 'Developer',
-      clientRate: '50',
-      rate: '100',
-      companyCharge: '10000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-01',
-      sinceLastPaid: '30 days',
-      maxWorkedHourLimit: '40'
+      revenue: '200000',
+      newLead: '2025-01-01',
+      contact: '123-456-7890',
+      notes: 'Met at conference, follow up next week'
     },
     {
-      company: 'Company B',
-      employeeId: 'E124',
+      clientID: 'C002',
       name: 'Jane Smith',
-      age: '28',
-      oca: 'OCA124',
-      resume: 'Resume Link 2',
-      desiredSalary: '55000',
-      revenue: '180000',
-      hiredSince: '2021-06-15',
+      email: 'janesmith@example.com',
       profit: '90000',
-      job: 'Designer',
-      clientRate: '45',
-      rate: '95',
-      companyCharge: '12000',
-      bankNotes: 'Yes',
-      contract: 'Contractual',
-      lastPaid: '2025-01-10',
-      sinceLastPaid: '15 days',
-      maxWorkedHourLimit: '35'
+      revenue: '180000',
+      newLead: '2025-01-05',
+      contact: '234-567-8901',
+      notes: 'Interested in long-term collaboration'
     },
     {
-      company: 'Company C',
-      employeeId: 'E125',
+      clientID: 'C003',
       name: 'Alice Johnson',
-      age: '35',
-      oca: 'OCA125',
-      resume: 'Resume Link 3',
-      desiredSalary: '60000',
+      email: 'alicej@example.com',
+      profit: 150000,
       revenue: '250000',
-      hiredSince: '2019-03-20',
-      profit: '150000',
-      job: 'Manager',
-      clientRate: '60',
-      rate: '120',
-      companyCharge: '15000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-20',
-      sinceLastPaid: '5 days',
-      maxWorkedHourLimit: '50'
+      newLead: '2025-01-10',
+      contact: '345-678-9012',
+      notes: 'Requested a detailed proposal'
     },
     {
-      company: 'Company D',
-      employeeId: 'E126',
+      clientID: 'C004',
       name: 'Michael Brown',
-      age: '40',
-      oca: 'OCA126',
-      resume: 'Resume Link 4',
-      desiredSalary: '70000',
-      revenue: '300000',
-      hiredSince: '2018-10-12',
+      email: 'michaelb@example.com',
       profit: '170000',
-      job: 'Project Lead',
-      clientRate: '70',
-      rate: '130',
-      companyCharge: '18000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-15',
-      sinceLastPaid: '10 days',
-      maxWorkedHourLimit: '45'
+      revenue: '300000',
+      newLead: '2025-01-12',
+      contact: '456-789-0123',
+      notes: 'Negotiating project timeline'
     },
     {
-      company: 'Company E',
-      employeeId: 'E127',
+      clientID: 'C005',
       name: 'Sara Williams',
-      age: '29',
-      oca: 'OCA127',
-      resume: 'Resume Link 5',
-      desiredSalary: '52000',
-      revenue: '220000',
-      hiredSince: '2020-05-05',
+      email: 'sara.w@example.com',
       profit: '110000',
-      job: 'UI/UX Designer',
-      clientRate: '55',
-      rate: '105',
-      companyCharge: '11000',
-      bankNotes: 'Yes',
-      contract: 'Contractual',
-      lastPaid: '2025-01-05',
-      sinceLastPaid: '20 days',
-      maxWorkedHourLimit: '38'
+      revenue: '220000',
+      newLead: '2025-01-15',
+      contact: '567-890-1234',
+      notes: 'Sent initial quote'
     },
     {
-      company: 'Company F',
-      employeeId: 'E128',
+      clientID: 'C006',
       name: 'David Clark',
-      age: '32',
-      oca: 'OCA128',
-      resume: 'Resume Link 6',
-      desiredSalary: '65000',
-      revenue: '240000',
-      hiredSince: '2019-07-22',
+      email: 'davidc@example.com',
       profit: '130000',
-      job: 'Software Engineer',
-      clientRate: '65',
-      rate: '110',
-      companyCharge: '13000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-18',
-      sinceLastPaid: '7 days',
-      maxWorkedHourLimit: '42'
+      revenue: 240000,
+      newLead: '2025-01-18',
+      contact: '678-901-2345',
+      notes: 'Follow-up scheduled for next month'
     },
     {
-      company: 'Company G',
-      employeeId: 'E129',
+      clientID: 'C007',
       name: 'Emma Turner',
-      age: '26',
-      oca: 'OCA129',
-      resume: 'Resume Link 7',
-      desiredSalary: '48000',
-      revenue: '170000',
-      hiredSince: '2022-01-12',
+      email: 'emma.t@example.com',
       profit: '85000',
-      job: 'Marketing Specialist',
-      clientRate: '40',
-      rate: '90',
-      companyCharge: '10000',
-      bankNotes: 'Yes',
-      contract: 'Contractual',
-      lastPaid: '2025-01-25',
-      sinceLastPaid: '1 day',
-      maxWorkedHourLimit: '37'
+      revenue: 170000,
+      newLead: '2025-01-20',
+      contact: '789-012-3456',
+      notes: 'Potential for cross-industry partnership'
     },
     {
-      company: 'Company H',
-      employeeId: 'E130',
+      clientID: 'C008',
       name: 'Chris Davis',
-      age: '38',
-      oca: 'OCA130',
-      resume: 'Resume Link 8',
-      desiredSalary: '58000',
-      revenue: '200000',
-      hiredSince: '2020-08-08',
+      email: 'chris.d@example.com',
       profit: '120000',
-      job: 'Business Analyst',
-      clientRate: '50',
-      rate: '100',
-      companyCharge: '14000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-10',
-      sinceLastPaid: '15 days',
-      maxWorkedHourLimit: '40'
+      revenue: '200000',
+      newLead: '2025-01-22',
+      contact: '890-123-4567',
+      notes: 'Requested a demo of the product'
     },
     {
-      company: 'Company I',
-      employeeId: 'E131',
+      clientID: 'C009',
       name: 'Sophia Walker',
-      age: '27',
-      oca: 'OCA131',
-      resume: 'Resume Link 9',
-      desiredSalary: '55000',
-      revenue: '210000',
-      hiredSince: '2021-11-30',
+      email: 'sophiaw@example.com',
       profit: '100000',
-      job: 'Content Writer',
-      clientRate: '55',
-      rate: '95',
-      companyCharge: '12000',
-      bankNotes: 'Yes',
-      contract: 'Contractual',
-      lastPaid: '2025-01-12',
-      sinceLastPaid: '14 days',
-      maxWorkedHourLimit: '35'
+      revenue: '210000',
+      newLead: '2025-01-24',
+      contact: '901-234-5678',
+      notes: 'Referred by an existing client'
     },
     {
-      company: 'Company J',
-      employeeId: 'E132',
+      clientID: 'C010',
       name: 'Daniel Wilson',
-      age: '34',
-      oca: 'OCA132',
-      resume: 'Resume Link 10',
-      desiredSalary: '60000',
-      revenue: '260000',
-      hiredSince: '2017-04-18',
+      email: 'danielw@example.com',
       profit: '140000',
-      job: 'HR Manager',
-      clientRate: '65',
-      rate: '110',
-      companyCharge: '16000',
-      bankNotes: 'No',
-      contract: 'Permanent',
-      lastPaid: '2025-01-22',
-      sinceLastPaid: '4 days',
-      maxWorkedHourLimit: '48'
+      revenue: '260000',
+      newLead: '2025-01-26',
+      contact: '012-345-6789',
+      notes: 'Planning to expand services next quarter'
     }
   ]);
 
@@ -983,26 +650,14 @@ export default function Employee() {
         }
       },
 
-      { header: 'Company', accessorKey: 'company', dataType: 'text' },
-      { header: 'Employee ID', accessorKey: 'employeeId', dataType: 'text' },
+      { header: 'Client ID', accessorKey: 'clientID', dataType: 'text' },
       { header: 'Name', accessorKey: 'name', dataType: 'text' },
-      { header: 'Age', accessorKey: 'age', dataType: 'text' },
-      { header: 'OCA', accessorKey: 'oca', dataType: 'text' },
-      { header: 'Resume', accessorKey: 'resume', dataType: 'text' },
-      { header: 'Desired Salary', accessorKey: 'desiredSalary', dataType: 'text' },
-      { header: 'Revenue', accessorKey: 'revenue', dataType: 'text' },
-      { header: 'Hired Since', accessorKey: 'hiredSince', dataType: 'text' },
+      { header: 'Email', accessorKey: 'email', dataType: 'text' },
       { header: 'Profit', accessorKey: 'profit', dataType: 'text' },
-      { header: 'Job', accessorKey: 'job', dataType: 'text' },
-      { header: 'Client Rate', accessorKey: 'clientRate', dataType: 'text' },
-      { header: 'Rate', accessorKey: 'rate', dataType: 'text' },
-      { header: 'Employee ID', accessorKey: 'employeeId', dataType: 'text' },
-      { header: 'Company Charge', accessorKey: 'companyCharge', dataType: 'text' },
-      { header: 'Bank Notes', accessorKey: 'bankNotes', dataType: 'text' },
-      { header: 'Contract', accessorKey: 'contract', dataType: 'text' },
-      { header: 'Last Paid', accessorKey: 'lastPaid', dataType: 'date' },
-      { header: 'Since Last Paid', accessorKey: 'sinceLastPaid', dataType: 'text' },
-      { header: 'Max Worked Hour Limit', accessorKey: 'maxWorkedHourLimit', dataType: 'text' },
+      { header: 'Revenue', accessorKey: 'revenue', dataType: 'text' },
+      { header: 'New Lead', accessorKey: 'newLead', dataType: 'text' },
+      { header: 'Contact', accessorKey: 'contact', dataType: 'text' },
+      { header: 'Notes', accessorKey: 'notes', dataType: 'text' },
       {
         header: 'Actions',
         id: 'delete',
@@ -1019,7 +674,7 @@ export default function Employee() {
     <>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', position: 'absolute', right: '16px' }}>
         <MuiButton variant="contained" color="primary" onClick={handleOpenModal} style={{ width: 'auto' }}>
-          Add Employee
+          Add Client
         </MuiButton>
       </Box>
 

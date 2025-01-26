@@ -10,6 +10,8 @@ import SimpleLayout from 'layout/Simple';
 import { SimpleLayoutType } from 'config';
 import { loader as productsLoader, productLoader } from 'api/products';
 import Employee from 'pages/widget/Employee';
+import Contacts from 'pages/widget/Contacts';
+import Clients from 'pages/widget/Clients';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
@@ -166,6 +168,14 @@ const MainRoutes = {
             {
               path: 'Employee',
               element: <Employee />
+            },
+            {
+              path: 'Contacts',
+              element: <Contacts />
+            },
+            {
+              path: 'Clients',
+              element: <Clients />
             }
           ]
         },

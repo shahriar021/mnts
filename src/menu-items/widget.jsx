@@ -47,7 +47,20 @@ const widget = {
       url: '/widget/Employee',
       icon: icons.LineChartOutlined
     },
-    
+    {
+      id: 'Contacts',
+      title: <FormattedMessage id="Contacts" />,
+      type: 'item',
+      url: '/widget/Contacts',
+      icon: icons.LineChartOutlined
+    },
+    {
+      id: 'Clients',
+      title: <FormattedMessage id="Clients" />,
+      type: 'item',
+      url: '/widget/Clients',
+      icon: icons.LineChartOutlined
+    }
   ]
 };
 
