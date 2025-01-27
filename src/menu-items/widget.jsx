@@ -60,6 +60,13 @@ const widget = {
       type: 'item',
       url: '/widget/Clients',
       icon: icons.LineChartOutlined
+    },
+    {
+      id: 'Leads',
+      title: <FormattedMessage id="Leads" />,
+      type: 'item',
+      url: '/widget/Leads',
+      icon: icons.LineChartOutlined
     }
   ]
 };

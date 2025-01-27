@@ -12,6 +12,7 @@ import { loader as productsLoader, productLoader } from 'api/products';
 import Employee from 'pages/widget/Employee';
 import Contacts from 'pages/widget/Contacts';
 import Clients from 'pages/widget/Clients';
+import Leads from 'pages/widget/Leads';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
@@ -176,6 +177,10 @@ const MainRoutes = {
             {
               path: 'Clients',
               element: <Clients />
+            },
+            {
+              path: 'Leads',
+              element: <Leads />
             }
           ]
         },
@@ -204,20 +209,7 @@ const MainRoutes = {
                 }
               ]
             },
-            {
-              path: 'leads',
-              element: <leads />,
-              children: [
-                {
-                  path: 'backlogs',
-                  element: <AppKanbanBacklogs />
-                },
-                {
-                  path: 'board',
-                  element: <AppKanbanBoard />
-                }
-              ]
-            },
+
             {
               path: 'customer',
               children: [
