@@ -155,10 +155,6 @@ const MainRoutes = {
           path: 'widget',
           children: [
             {
-              path: 'statistics',
-              element: <WidgetStatistics />
-            },
-            {
               path: 'data',
               element: <WidgetData />
             },
@@ -209,7 +205,6 @@ const MainRoutes = {
                 }
               ]
             },
-
             {
               path: 'customer',
               children: [
@@ -531,28 +526,28 @@ const MainRoutes = {
         }
       ]
     },
-    {
-      path: '/maintenance',
-      element: <PagesLayout />,
-      children: [
-        {
-          path: '404',
-          element: <MaintenanceError />
-        },
-        {
-          path: '500',
-          element: <MaintenanceError500 />
-        },
-        {
-          path: 'under-construction',
-          element: <MaintenanceUnderConstruction />
-        },
-        {
-          path: 'coming-soon',
-          element: <MaintenanceComingSoon />
-        }
-      ]
-    },
+    // {
+    //   path: '/maintenance',
+    //   element: <PagesLayout />,
+    //   children: [
+    //     {
+    //       path: '404',
+    //       element: <MaintenanceError />
+    //     },
+    //     {
+    //       path: '500',
+    //       element: <MaintenanceError500 />
+    //     },
+    //     {
+    //       path: 'under-construction',
+    //       element: <MaintenanceUnderConstruction />
+    //     },
+    //     {
+    //       path: 'coming-soon',
+    //       element: <MaintenanceComingSoon />
+    //     }
+    //   ]
+    // },
     {
       path: '/auth',
       element: <PagesLayout />,

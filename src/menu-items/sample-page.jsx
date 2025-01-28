@@ -15,7 +15,7 @@ const icons = { ChromeOutlined };
 
 const samplePage = {
   id: 'sample-page',
-  title: <FormattedMessage id="sample-page" />,
+  // title: <FormattedMessage id="sample-page" />,
   type: 'group',
   url: '/sample-page',
   icon: icons.ChromeOutlined

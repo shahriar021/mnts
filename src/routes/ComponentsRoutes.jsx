@@ -51,138 +51,138 @@ const TreeView = Loadable(lazy(() => import('pages/components-overview/treeview'
 // ==============================|| COMPONENTS ROUTING ||============================== //
 
 const ComponentsRoutes = {
-  path: 'components-overview',
-  element: <ComponentLayout />,
-  children: [
-    {
-      path: 'autocomplete',
-      element: <Autocomplete />
-    },
-    {
-      path: 'buttons',
-      element: <Buttons />
-    },
-    {
-      path: 'checkbox',
-      element: <Checkbox />
-    },
-    {
-      path: 'radio',
-      element: <Radio />
-    },
-    {
-      path: 'rating',
-      element: <Rating />
-    },
-    {
-      path: 'switch',
-      element: <Switch />
-    },
-    {
-      path: 'select',
-      element: <Select />
-    },
-    {
-      path: 'slider',
-      element: <Slider />
-    },
-    {
-      path: 'textfield',
-      element: <TextField />
-    },
-    {
-      path: 'avatars',
-      element: <Avatars />
-    },
-    {
-      path: 'badges',
-      element: <Badges />
-    },
-    {
-      path: 'chips',
-      element: <Chips />
-    },
-    {
-      path: 'lists',
-      element: <Lists />
-    },
-    {
-      path: 'tooltip',
-      element: <Tooltip />
-    },
-    {
-      path: 'typography',
-      element: <Typography />
-    },
-    {
-      path: 'alert',
-      element: <Alert />
-    },
-    {
-      path: 'dialogs',
-      element: <Dialogs />
-    },
-    {
-      path: 'progress',
-      element: <Progress />
-    },
-    {
-      path: 'snackbar',
-      element: <Snackbar />
-    },
-    {
-      path: 'breadcrumbs',
-      element: <Breadcrumbs />
-    },
-    {
-      path: 'pagination',
-      element: <Pagination />
-    },
-    {
-      path: 'speeddial',
-      element: <Speeddial />
-    },
-    {
-      path: 'stepper',
-      element: <Stepper />
-    },
-    {
-      path: 'tabs',
-      element: <Tabs />
-    },
-    {
-      path: 'accordion',
-      element: <Accordion />
-    },
-    {
-      path: 'cards',
-      element: <Cards />
-    },
-    {
-      path: 'color',
-      element: <Color />
-    },
-    {
-      path: 'date-time-picker',
-      element: <DateTimePicker />
-    },
-    {
-      path: 'modal',
-      element: <Modal />
-    },
-    {
-      path: 'shadows',
-      element: <Shadow />
-    },
-    {
-      path: 'timeline',
-      element: <Timeline />
-    },
-    {
-      path: 'treeview',
-      element: <TreeView />
-    }
-  ]
+  // path: 'components-overview',
+  // element: <ComponentLayout />,
+  // children: [
+  //   {
+  //     path: 'autocomplete',
+  //     element: <Autocomplete />
+  //   },
+  //   {
+  //     path: 'buttons',
+  //     element: <Buttons />
+  //   },
+  //   {
+  //     path: 'checkbox',
+  //     element: <Checkbox />
+  //   },
+  //   {
+  //     path: 'radio',
+  //     element: <Radio />
+  //   },
+  //   {
+  //     path: 'rating',
+  //     element: <Rating />
+  //   },
+  //   {
+  //     path: 'switch',
+  //     element: <Switch />
+  //   },
+  //   {
+  //     path: 'select',
+  //     element: <Select />
+  //   },
+  //   {
+  //     path: 'slider',
+  //     element: <Slider />
+  //   },
+  //   {
+  //     path: 'textfield',
+  //     element: <TextField />
+  //   },
+  //   {
+  //     path: 'avatars',
+  //     element: <Avatars />
+  //   },
+  //   {
+  //     path: 'badges',
+  //     element: <Badges />
+  //   },
+  //   {
+  //     path: 'chips',
+  //     element: <Chips />
+  //   },
+  //   {
+  //     path: 'lists',
+  //     element: <Lists />
+  //   },
+  //   {
+  //     path: 'tooltip',
+  //     element: <Tooltip />
+  //   },
+  //   {
+  //     path: 'typography',
+  //     element: <Typography />
+  //   },
+  //   {
+  //     path: 'alert',
+  //     element: <Alert />
+  //   },
+  //   {
+  //     path: 'dialogs',
+  //     element: <Dialogs />
+  //   },
+  //   {
+  //     path: 'progress',
+  //     element: <Progress />
+  //   },
+  //   {
+  //     path: 'snackbar',
+  //     element: <Snackbar />
+  //   },
+  //   {
+  //     path: 'breadcrumbs',
+  //     element: <Breadcrumbs />
+  //   },
+  //   {
+  //     path: 'pagination',
+  //     element: <Pagination />
+  //   },
+  //   {
+  //     path: 'speeddial',
+  //     element: <Speeddial />
+  //   },
+  //   {
+  //     path: 'stepper',
+  //     element: <Stepper />
+  //   },
+  //   {
+  //     path: 'tabs',
+  //     element: <Tabs />
+  //   },
+  //   {
+  //     path: 'accordion',
+  //     element: <Accordion />
+  //   },
+  //   {
+  //     path: 'cards',
+  //     element: <Cards />
+  //   },
+  //   {
+  //     path: 'color',
+  //     element: <Color />
+  //   },
+  //   {
+  //     path: 'date-time-picker',
+  //     element: <DateTimePicker />
+  //   },
+  //   {
+  //     path: 'modal',
+  //     element: <Modal />
+  //   },
+  //   {
+  //     path: 'shadows',
+  //     element: <Shadow />
+  //   },
+  //   {
+  //     path: 'timeline',
+  //     element: <Timeline />
+  //   },
+  //   {
+  //     path: 'treeview',
+  //     element: <TreeView />
+  //   }
+  // ]
 };
 
 export default ComponentsRoutes;
