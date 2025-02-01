@@ -26,7 +26,7 @@ const TaskCard = styled(Card)(({ theme }) => ({
 
 const Leads = () => {
   const [tasks, setTasks] = useState({
-    taskReadiness: [
+    newLead: [
       {
         id: '1',
         title: 'Implement Login',
@@ -39,7 +39,7 @@ const Leads = () => {
         }
       }
     ],
-    workInProgress: [
+    initialContact: [
       {
         id: '2',
         title: 'Design Dashboard',
@@ -52,8 +52,13 @@ const Leads = () => {
         }
       }
     ],
-    reviewNeeded: [],
-    completed: []
+    meetingScheduled: [],
+    meetingDone: [],
+    jobListing: [],
+    application: [],
+    presented: [],
+    contracts: [],
+    hired: []
   });
 
   const [newTask, setNewTask] = useState({
@@ -116,10 +121,15 @@ const Leads = () => {
   };
 
   const columns = [
-    { id: 'taskReadiness', title: 'Task Readiness', bgcolor: '#bbdefb' },
-    { id: 'workInProgress', title: 'Work in Progress', bgcolor: '#fff3e0' },
-    { id: 'reviewNeeded', title: 'Review Needed', bgcolor: '#ffe0b2' },
-    { id: 'completed', title: 'Completed', bgcolor: '#c8e6c9' }
+    { id: 'newLead', title: 'New Lead', bgcolor: '#bbdefb' },
+    { id: 'initialContact', title: 'Initial Contact', bgcolor: '#fff3e0' },
+    { id: 'meetingScheduled', title: 'Meeting Scheduled', bgcolor: '#ffe0b2' },
+    { id: 'meetingDone', title: 'Meeting Done', bgcolor: '#c8e6c9' },
+    { id: 'jobListing', title: 'Job Listing Posted', bgcolor: '#c8e6c7' },
+    { id: 'application', title: 'Application', bgcolor: '#c7e6c9' },
+    { id: 'presented', title: 'Presented', bgcolor: '#c8a6c9' },
+    { id: 'contracts', title: 'Contracts', bgcolor: '#c8dfc9' },
+    { id: 'hired', title: 'Hired', bgcolor: '#c8a9c9' }
   ];
 
   return (
@@ -133,7 +143,7 @@ const Leads = () => {
         }}
       >
         <DragDropContext onDragEnd={handleDragEnd}>
-          {columns.map((column) => (
+          {columns?.map((column) => (
             <Column key={column.id} bgcolor={column.bgcolor}>
               <Typography variant="h6" gutterBottom>
                 {column.title}

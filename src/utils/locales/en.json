@@ -136,5 +136,9 @@
   "user-profile": "User Profile",
   "utils": "Utils",
   "widgets": "Widgets",
-  "more-items": "More Items"
+  "more-items": "More Items",
+  "Employee": "Employee",
+  "Contacts": "Contacts",
+  "Clients": "Clients",
+  "Leads": "Leads"
 }

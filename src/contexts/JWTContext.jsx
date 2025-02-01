@@ -21,24 +21,44 @@ const initialState = {
   user: null
 };
 
+// const verifyToken = (serviceToken) => {
+//   if (!serviceToken) {
+//     return false;
+//   }
+//   const decoded = jwtDecode(serviceToken);
+//   /**
+//    * Property 'exp' does not exist on type '<T = unknown>(token: string, options?: JwtDecodeOptions | undefined) => T'.
+//    */
+//   return decoded.exp > Date.now() / 1000;
+// };
 const verifyToken = (serviceToken) => {
-  if (!serviceToken) {
-    return false;
-  }
+  if (!serviceToken) return false;
+
   const decoded = jwtDecode(serviceToken);
-  /**
-   * Property 'exp' does not exist on type '<T = unknown>(token: string, options?: JwtDecodeOptions | undefined) => T'.
-   */
-  return decoded.exp > Date.now() / 1000;
+  if (decoded && decoded.exp) {
+    return decoded.exp > Date.now() / 1000;
+  }
+
+  return false;
 };
 
+// const setSession = (serviceToken) => {
+//   if (serviceToken) {
+//     localStorage.setItem('serviceToken', serviceToken);
+//     axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
+//   } else {
+//     localStorage.removeItem('serviceToken');
+//     delete axios.defaults.headers.common.Authorization;
+//   }
+// };
 const setSession = (serviceToken) => {
   if (serviceToken) {
+    console.log('Token set in session:', serviceToken); // Debugging line
     localStorage.setItem('serviceToken', serviceToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${serviceToken}`;
   } else {
     localStorage.removeItem('serviceToken');
-    delete axios.defaults.headers.common.Authorization;
+    delete axios.defaults.headers.common['Authorization'];
   }
 };
 
@@ -55,13 +75,13 @@ export const JWTProvider = ({ children }) => {
         const serviceToken = window.localStorage.getItem('serviceToken');
         if (serviceToken && verifyToken(serviceToken)) {
           setSession(serviceToken);
-          const response = await axios.get('/api/account/me');
-          const { user } = response.data;
+          // const response = await axios.get('/api/account/me');
+          // const { user } = response.data;
           dispatch({
             type: LOGIN,
             payload: {
-              isLoggedIn: true,
-              user
+              isLoggedIn: true
+              //user
             }
           });
         } else {
@@ -80,17 +100,44 @@ export const JWTProvider = ({ children }) => {
     init();
   }, []);
 
+  // const login = async (email, password) => {
+  //   const response = await axios.post('/api/account/login', { email, password });
+  //   const { serviceToken, user } = response.data;
+  //   setSession(serviceToken);
+  //   dispatch({
+  //     type: LOGIN,
+  //     payload: {
+  //       isLoggedIn: true,
+  //       user
+  //     }
+  //   });
+  // };
+
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', { email, password });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
-    dispatch({
-      type: LOGIN,
-      payload: {
-        isLoggedIn: true,
-        user
+    try {
+      const response = await axios.post('https://gari.remoteintegrity.com/api/auth/login', {
+        user_email: email,
+        user_password: password
+      });
+
+      // Handle response, check if the token and user exist
+      if (response.data && response.data.serviceToken) {
+        const { serviceToken, user } = response.data;
+        setSession(serviceToken); // Store token and set session
+        dispatch({
+          type: LOGIN,
+          payload: {
+            isLoggedIn: true,
+            user
+          }
+        });
+      } else {
+        throw new Error('Service token not received.');
       }
-    });
+    } catch (err) {
+      console.error('Login failed:', err.message);
+      throw new Error('Login failed, please check your credentials.');
+    }
   };
 
   const register = async (email, password, firstName, lastName) => {

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Button as MuiButton, TablePagination } from '@mui/material';
 import { Menu, MenuItem } from '@mui/material';
 import { MoreOutlined } from '@ant-design/icons';
@@ -40,70 +40,16 @@ import EditTwoTone from '@ant-design/icons/EditTwoTone';
 import SendOutlined from '@ant-design/icons/SendOutlined';
 import Button from 'themes/overrides/Button';
 import TableFooter from 'themes/overrides/TableFooter';
-// function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
-//   const [formData, setFormData] = useState({
-//     company: '',
-//     employeeId: '',
-//     name: '',
-//     age: '',
-//     job: '',
-//     email: '',
-//     phone: ''
-//   });
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmit = () => {
-//     handleAddEmployee(formData);
-//     handleClose();
-//     setFormData({
-//       company: '',
-//       employeeId: '',
-//       name: '',
-//       age: '',
-//       job: '',
-//       email: '',
-//       phone: ''
-//     });
-//   };
-
-//   return (
-//     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-//       <DialogTitle>Add Employee</DialogTitle>
-//       <DialogContent>
-//         <Stack spacing={2}>
-//           <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
-//           <TextField label="Employee ID" name="employeeId" value={formData.employeeId} onChange={handleChange} fullWidth />
-//           <TextField label="Name" name="name" value={formData.name} onChange={handleChange} fullWidth />
-//           <TextField label="Age" name="age" type="number" value={formData.age} onChange={handleChange} fullWidth />
-//           <TextField label="Job" name="job" value={formData.job} onChange={handleChange} fullWidth />
-//           <TextField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} fullWidth />
-//           <TextField label="Phone Number" name="phone" type="tel" value={formData.phone} onChange={handleChange} fullWidth />
-//         </Stack>
-//       </DialogContent>
-//       <DialogActions>
-//         <MuiButton onClick={handleClose} color="secondary">
-//           Cancel
-//         </MuiButton>
-//         <MuiButton onClick={handleSubmit} variant="contained" color="primary">
-//           Add
-//         </MuiButton>
-//       </DialogActions>
-//     </Dialog>
-//   );
-// }
 function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
   const [formData, setFormData] = useState({
-    contactId: '',
-    phone: '',
-    email: '',
-    name: '',
-    contactType: '',
-    companies: '',
-    notes: ''
+    contact_id: '',
+    contact_phone: '',
+    contact_email: '',
+    contact_name: '',
+    contact_type: '',
+    //companies: '',
+    Notes: ''
   });
 
   const handleChange = (e) => {
@@ -111,18 +57,35 @@ function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    handleAddEmployee(formData);
-    handleClose();
-    setFormData({
-      contactId: '',
-      phone: '',
-      email: '',
-      name: '',
-      contactType: '',
-      companies: '',
-      notes: ''
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('authToken');
+
+    const response = await fetch('https://gari.remoteintegrity.com/api/contacts', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
     });
+
+    console.log(response, 'post data..', token);
+
+    if (response.ok) {
+      const newEmployee = await response.json(); // Get the new contact from API
+      handleAddEmployee(newEmployee); // Update UI only if API succeeds
+      handleClose();
+      setFormData({
+        contact_id: '',
+        contact_phone: '',
+        contact_email: '',
+        contact_name: '',
+        contact_type: '',
+        Notes: ''
+      });
+    } else {
+      console.error('Failed to add contact', response.statusText);
+    }
   };
 
   return (
@@ -130,13 +93,13 @@ function AddEmployeeModal({ open, handleClose, handleAddEmployee }) {
       <DialogTitle>Add Employee</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <TextField label="Contact ID" name="contactId" value={formData.contactId} onChange={handleChange} fullWidth />
-          <TextField label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} fullWidth />
-          <TextField label="Email" name="email" type="email" value={formData.email} onChange={handleChange} fullWidth />
-          <TextField label="Name" name="name" value={formData.name} onChange={handleChange} fullWidth />
-          <TextField label="Contact Type" name="contactType" value={formData.contactType} onChange={handleChange} fullWidth />
-          <TextField label="Companies" name="companies" value={formData.companies} onChange={handleChange} fullWidth />
-          <TextField label="Notes" name="notes" value={formData.notes} onChange={handleChange} multiline rows={3} fullWidth />
+          <TextField label="Contact ID" name="contact_id" value={formData.contact_id} onChange={handleChange} fullWidth />
+          <TextField label="Phone" name="contact_phone" type="tel" value={formData.contact_phone} onChange={handleChange} fullWidth />
+          <TextField label="Email" name="contact_email" type="email" value={formData.contact_email} onChange={handleChange} fullWidth />
+          <TextField label="Name" name="contact_name" value={formData.contact_name} onChange={handleChange} fullWidth />
+          <TextField label="Contact Type" name="contact_type" value={formData.contact_type} onChange={handleChange} fullWidth />
+          {/* <TextField label="Companies" name="companies" value={formData.companies} onChange={handleChange} fullWidth /> */}
+          <TextField label="Notes" name="Notes" value={formData.Notes} onChange={handleChange} multiline rows={3} fullWidth />
         </Stack>
       </DialogContent>
       <DialogActions>
@@ -277,7 +240,7 @@ function ReactTable({ columns, data, setData }) {
   const [pageSize, setPageSize] = useState(10); // Items per page
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5 // Default rows per page
+    pageSize: 10 // Default rows per page
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5); // Default to 5 items per page
@@ -451,26 +414,6 @@ function ReactTable({ columns, data, setData }) {
                 ))
               )}
             </TableBody>
-            {/* <TableFooter>
-              <TableRow>
-                <TableCell colSpan={columns.length}>
-                  <Stack direction="row" justifyContent="flex-end" spacing={1}>
-                    <Button
-                      onClick={() => setPagination({ pageIndex: pagination.pageIndex - 1, pageSize: pagination.pageSize })}
-                      disabled={pagination.pageIndex === 0}
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      onClick={() => setPagination({ pageIndex: pagination.pageIndex + 1, pageSize: pagination.pageSize })}
-                      disabled={pagination.pageIndex === table.getPageCount() - 1}
-                    >
-                      Next
-                    </Button>
-                  </Stack>
-                </TableCell>
-              </TableRow>
-            </TableFooter> */}
           </Table>
         </TableContainer>
         <TablePagination
@@ -491,105 +434,32 @@ function ReactTable({ columns, data, setData }) {
 
 export default function Contacts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [data, setData] = useState([]);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-
+  const token = localStorage.getItem('authToken');
+  console.log(token, 'token.');
   const handleAddEmployee = (newEmployee) => {
     setData((prevData) => [...prevData, newEmployee]);
   };
-  const [data, setData] = useState(() => [
-    {
-      contactId: 'C001',
-      phone: '123-456-7890',
-      email: 'john.doe@companya.com',
-      name: 'John Doe',
-      contactType: 'Employee',
-      companies: 'Company A',
-      notes: 'Hired since 2020, Developer with excellent skills.'
-    },
-    {
-      contactId: 'C002',
-      phone: '234-567-8901',
-      email: 'jane.smith@companyb.com',
-      name: 'Jane Smith',
-      contactType: 'Employee',
-      companies: 'Company B',
-      notes: 'Creative Designer, hired in 2021.'
-    },
-    {
-      contactId: 'C003',
-      phone: '345-678-9012',
-      email: 'alice.johnson@companyc.com',
-      name: 'Alice Johnson',
-      contactType: 'Employee',
-      companies: 'Company C',
-      notes: 'Manager with over 5 years of experience.'
-    },
-    {
-      contactId: 'C004',
-      phone: '456-789-0123',
-      email: 'michael.brown@companyd.com',
-      name: 'Michael Brown',
-      contactType: 'Employee',
-      companies: 'Company D',
-      notes: 'Project Lead since 2018.'
-    },
-    {
-      contactId: 'C005',
-      phone: '567-890-1234',
-      email: 'sara.williams@companye.com',
-      name: 'Sara Williams',
-      contactType: 'Employee',
-      companies: 'Company E',
-      notes: 'UI/UX Designer, hired in 2020.'
-    },
-    {
-      contactId: 'C006',
-      phone: '678-901-2345',
-      email: 'david.clark@companyf.com',
-      name: 'David Clark',
-      contactType: 'Employee',
-      companies: 'Company F',
-      notes: 'Software Engineer, joined in 2019.'
-    },
-    {
-      contactId: 'C007',
-      phone: '789-012-3456',
-      email: 'emma.turner@companyg.com',
-      name: 'Emma Turner',
-      contactType: 'Employee',
-      companies: 'Company G',
-      notes: 'Marketing Specialist, hired in 2022.'
-    },
-    {
-      contactId: 'C008',
-      phone: '890-123-4567',
-      email: 'chris.davis@companyh.com',
-      name: 'Chris Davis',
-      contactType: 'Employee',
-      companies: 'Company H',
-      notes: 'Business Analyst, joined in 2020.'
-    },
-    {
-      contactId: 'C009',
-      phone: '901-234-5678',
-      email: 'sophia.walker@companyi.com',
-      name: 'Sophia Walker',
-      contactType: 'Employee',
-      companies: 'Company I',
-      notes: 'Content Writer, hired in 2021.'
-    },
-    {
-      contactId: 'C010',
-      phone: '012-345-6789',
-      email: 'daniel.wilson@companyj.com',
-      name: 'Daniel Wilson',
-      contactType: 'Employee',
-      companies: 'Company J',
-      notes: 'HR Manager, part of the team since 2017.'
+  console.log(localStorage.getItem('authToken'), 'helloe');
+  useEffect(() => {
+    const getContactsData = async () => {
+      const data = await fetch('https://gari.remoteintegrity.com/api/contacts', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      const jsonData = await data.json();
+      setData(jsonData);
+    };
+    if (token) {
+      getContactsData();
     }
-  ]);
+  }, [token]);
+  console.log(data, 'info');
 
   const columns = useMemo(
     () => [
@@ -602,13 +472,13 @@ export default function Contacts() {
         }
       },
 
-      { header: 'Contact Id', accessorKey: 'contactId', dataType: 'text' },
-      { header: 'Phone', accessorKey: 'phone', dataType: 'text' },
-      { header: 'Email', accessorKey: 'email', dataType: 'text' },
-      { header: 'Name', accessorKey: 'name', dataType: 'text' },
-      { header: 'Contact Type', accessorKey: 'contactType', dataType: 'text' },
+      { header: 'Contact Id', accessorKey: 'contact_id', dataType: 'text' },
+      { header: 'Phone', accessorKey: 'contact_phone', dataType: 'text' },
+      { header: 'Email', accessorKey: 'contact_email', dataType: 'text' },
+      { header: 'Name', accessorKey: 'contact_name', dataType: 'text' },
+      { header: 'Contact Type', accessorKey: 'contact_type', dataType: 'text' },
       { header: 'Companies', accessorKey: 'companies', dataType: 'text' },
-      { header: 'Notes', accessorKey: 'notes', dataType: 'text' },
+      { header: 'Notes', accessorKey: 'Notes', dataType: 'text' },
 
       {
         header: 'Actions',
